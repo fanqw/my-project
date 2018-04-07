@@ -98,5 +98,9 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 10"
-  ]
+  ],
+  "script" : {
+    "start": "roadhog server",
+    "start:no-proxy": "cross-env NO_PROXY=true roadhog server"
+  }
 }

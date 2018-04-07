@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
-import { Link } from 'dva/router';
-import { Checkbox, Alert, Icon } from 'antd';
+// import { Link } from 'dva/router';
+// import { Checkbox, Alert, Icon } from 'antd';
+import { Alert} from 'antd';
 import Login from 'components/Login';
 import styles from './Login.less';
 
-const { Tab, UserName, Password, Mobile, Captcha, Submit } = Login;
+// const { Tab, UserName, Password, Mobile, Captcha, Submit } = Login;
+const { Tab, UserName, Password , Submit } = Login;
 
 @connect(({ login, loading }) => ({
   login,
@@ -14,7 +16,7 @@ const { Tab, UserName, Password, Mobile, Captcha, Submit } = Login;
 export default class LoginPage extends Component {
   state = {
     type: 'account',
-    autoLogin: true,
+    // autoLogin: true,
   };
 
   onTabChange = type => {
@@ -34,11 +36,11 @@ export default class LoginPage extends Component {
     }
   };
 
-  changeAutoLogin = e => {
-    this.setState({
-      autoLogin: e.target.checked,
-    });
-  };
+  // changeAutoLogin = e => {
+  //   this.setState({
+  //     autoLogin: e.target.checked,
+  //   });
+  // };
 
   renderMessage = content => {
     return <Alert style={{ marginBottom: 24 }} message={content} type="error" showIcon />;
@@ -54,11 +56,11 @@ export default class LoginPage extends Component {
             {login.status === 'error' &&
               login.type === 'account' &&
               !login.submitting &&
-              this.renderMessage('账户或密码错误（admin/888888）')}
-            <UserName name="userName" placeholder="admin/user" />
-            <Password name="password" placeholder="888888/123456" />
+              this.renderMessage('账户或密码错误（admin/123456）')}
+            <UserName name="userName" />
+            <Password name="password" />
           </Tab>
-          <Tab key="mobile" tab="手机号登录">
+          {/* <Tab key="mobile" tab="手机号登录">
             {login.status === 'error' &&
               login.type === 'mobile' &&
               !login.submitting &&
@@ -73,9 +75,9 @@ export default class LoginPage extends Component {
             <a style={{ float: 'right' }} href="">
               忘记密码
             </a>
-          </div>
+          </div> */}
           <Submit loading={submitting}>登录</Submit>
-          <div className={styles.other}>
+          {/* <div className={styles.other}>
             其他登录方式
             <Icon className={styles.icon} type="alipay-circle" />
             <Icon className={styles.icon} type="taobao-circle" />
@@ -83,7 +85,7 @@ export default class LoginPage extends Component {
             <Link className={styles.register} to="/user/register">
               注册账户
             </Link>
-          </div>
+          </div> */}
         </Login>
       </div>
     );
