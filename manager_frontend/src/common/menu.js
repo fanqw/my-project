@@ -2,20 +2,20 @@ import { isUrl } from '../utils/utils';
 
 const menuData = [
   {
-    name: 'dashboard',
+    name: '户籍管理',
     icon: 'dashboard',
     path: 'dashboard',
     children: [
       {
-        name: '分析页',
+        name: '人口统计',
         path: 'analysis',
       },
       {
-        name: '监控页',
+        name: '人口分析',
         path: 'monitor',
       },
       {
-        name: '工作台',
+        name: '迁入迁出分析',
         path: 'workplace',
         // hideInBreadcrumb: true,
         // hideInMenu: true,
@@ -23,24 +23,24 @@ const menuData = [
     ],
   },
   {
-    name: '表单页',
+    name: '居民信息登记',
     icon: 'form',
     path: 'form',
-    children: [
-      {
-        name: '基础表单',
-        path: 'basic-form',
-      },
-      {
-        name: '分步表单',
-        path: 'step-form',
-      },
-      {
-        name: '高级表单',
-        authority: 'admin',
-        path: 'advanced-form',
-      },
-    ],
+    // children: [
+    //   {
+    //     name: '居民信息登记',
+    //     path: 'basic-form',
+    //   },
+    //   {
+    //     name: '分步表单',
+    //     path: 'step-form',
+    //   },
+    //   {
+    //     name: '高级表单',
+    //     authority: 'admin',
+    //     path: 'advanced-form',
+    //   },
+    // ],
   },
   {
     name: '列表页',
@@ -48,34 +48,34 @@ const menuData = [
     path: 'list',
     children: [
       {
-        name: '查询表格',
+        name: '查询居民信息',
         path: 'table-list',
       },
       {
-        name: '标准列表',
+        name: '居民信息总览',
         path: 'basic-list',
       },
-      {
-        name: '卡片列表',
-        path: 'card-list',
-      },
+      // {
+      //   name: '卡片列表',
+      //   path: 'card-list',
+      // },
       {
         name: '搜索列表',
         path: 'search',
-        children: [
-          {
-            name: '搜索列表（文章）',
-            path: 'articles',
-          },
-          {
-            name: '搜索列表（项目）',
-            path: 'projects',
-          },
-          {
-            name: '搜索列表（应用）',
-            path: 'applications',
-          },
-        ],
+        // children: [
+        //   {
+        //     name: '搜索列表（）',
+        //     path: 'articles',
+        //   },
+        //   {
+        //     name: '搜索列表（项目）',
+        //     path: 'projects',
+        //   },
+        //   {
+        //     name: '搜索列表（应用）',
+        //     path: 'applications',
+        //   },
+        // ],
       },
     ],
   },
