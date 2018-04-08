@@ -14,7 +14,8 @@ export default ({ theme, title, subTitle, total, subTotal, status, suffix, gap, 
     {subTitle && <div className={styles.numberInfoSubTitle}>{subTitle}</div>}
     <div className={styles.numberInfoValue} style={gap ? { marginTop: gap } : null}>
       <span>
-        {total}
+        
+        {subTitle === '总居民户数' ? `${total}户`:`户号：${total}`}
         {suffix && <em className={styles.suffix}>{suffix}</em>}
       </span>
       {(status || subTotal) && (

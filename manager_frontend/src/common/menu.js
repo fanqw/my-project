@@ -23,14 +23,14 @@ const menuData = [
     ],
   },
   {
-    name: '居民信息登记',
+    name: '信息登记',
     icon: 'form',
     path: 'form',
-    // children: [
-    //   {
-    //     name: '居民信息登记',
-    //     path: 'basic-form',
-    //   },
+    children: [
+      {
+        name: '居民信息登记',
+        path: 'basic-form',
+      },
     //   {
     //     name: '分步表单',
     //     path: 'step-form',
@@ -40,7 +40,7 @@ const menuData = [
     //     authority: 'admin',
     //     path: 'advanced-form',
     //   },
-    // ],
+    ],
   },
   {
     name: '列表页',

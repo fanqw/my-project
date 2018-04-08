@@ -8,31 +8,31 @@ import {
   Tabs,
   Table,
   Radio,
-  DatePicker,
-  Tooltip,
+  // DatePicker,
+  // Tooltip,
   Menu,
   Dropdown,
 } from 'antd';
 import numeral from 'numeral';
 import {
-  ChartCard,
-  yuan,
-  MiniArea,
-  MiniBar,
-  MiniProgress,
-  Field,
-  Bar,
+  // ChartCard,
+  // yuan,
+  // MiniArea,
+  // MiniBar,
+  // MiniProgress,
+  // Field,
+  // Bar,
   Pie,
   TimelineChart,
 } from 'components/Charts';
-import Trend from 'components/Trend';
+// import Trend from 'components/Trend';
 import NumberInfo from 'components/NumberInfo';
 import { getTimeDistance } from '../../utils/utils';
 
 import styles from './Analysis.less';
 
 const { TabPane } = Tabs;
-const { RangePicker } = DatePicker;
+// const { RangePicker } = DatePicker;
 
 const rankingListData = [];
 for (let i = 0; i < 7; i += 1) {
@@ -113,12 +113,13 @@ export default class Analysis extends Component {
   }
 
   render() {
-    const { rangePickerValue, salesType, currentTabKey } = this.state;
+    // const { rangePickerValue, salesType, currentTabKey } = this.state;
+    const { salesType, currentTabKey } = this.state;
     const { chart, loading } = this.props;
     const {
-      visitData,
-      visitData2,
-      salesData,
+      // visitData,
+      // visitData2,
+      // salesData,
       searchData,
       offlineData,
       offlineChartData,
@@ -147,29 +148,29 @@ export default class Analysis extends Component {
       </span>
     );
 
-    const salesExtra = (
-      <div className={styles.salesExtraWrap}>
-        <div className={styles.salesExtra}>
-          <a className={this.isActive('today')} onClick={() => this.selectDate('today')}>
-            今日
-          </a>
-          <a className={this.isActive('week')} onClick={() => this.selectDate('week')}>
-            本周
-          </a>
-          <a className={this.isActive('month')} onClick={() => this.selectDate('month')}>
-            本月
-          </a>
-          <a className={this.isActive('year')} onClick={() => this.selectDate('year')}>
-            全年
-          </a>
-        </div>
-        <RangePicker
-          value={rangePickerValue}
-          onChange={this.handleRangePickerChange}
-          style={{ width: 256 }}
-        />
-      </div>
-    );
+    // const salesExtra = (
+    //   <div className={styles.salesExtraWrap}>
+    //     <div className={styles.salesExtra}>
+    //       <a className={this.isActive('today')} onClick={() => this.selectDate('today')}>
+    //         今日
+    //       </a>
+    //       <a className={this.isActive('week')} onClick={() => this.selectDate('week')}>
+    //         本周
+    //       </a>
+    //       <a className={this.isActive('month')} onClick={() => this.selectDate('month')}>
+    //         本月
+    //       </a>
+    //       <a className={this.isActive('year')} onClick={() => this.selectDate('year')}>
+    //         全年
+    //       </a>
+    //     </div>
+    //     <RangePicker
+    //       value={rangePickerValue}
+    //       onChange={this.handleRangePickerChange}
+    //       style={{ width: 256 }}
+    //     />
+    //   </div>
+    // );
 
     const columns = [
       {
@@ -178,29 +179,30 @@ export default class Analysis extends Component {
         key: 'index',
       },
       {
-        title: '搜索关键词',
-        dataIndex: 'keyword',
-        key: 'keyword',
+        title: '户号',
+        dataIndex: 'family_code',
+        key: 'family_code',
         render: text => <a href="/">{text}</a>,
       },
       {
-        title: '用户数',
-        dataIndex: 'count',
-        key: 'count',
-        sorter: (a, b) => a.count - b.count,
+        title: '户主',
+        dataIndex: 'master',
+        key: 'master',
+        // sorter: (a, b) => a.count - b.count,
         className: styles.alignRight,
       },
       {
-        title: '周涨幅',
-        dataIndex: 'range',
-        key: 'range',
-        sorter: (a, b) => a.range - b.range,
-        render: (text, record) => (
-          <Trend flag={record.status === 1 ? 'down' : 'up'}>
-            <span style={{ marginRight: 4 }}>{text}%</span>
-          </Trend>
-        ),
-        align: 'right',
+        title: '家庭成员',
+        dataIndex: 'group',
+        key: 'group',
+        render:(text) => (text),align:"center",
+        // sorter: (a, b) => a.range - b.range,
+        // render: (text, record) => (
+        //   <Trend flag={record.status === 1 ? 'down' : 'up'}>
+        //     <span style={{ marginRight: 4 }}>{text}%</span>
+        //   </Trend>
+        // ),
+        // align: 'right',
       },
     ];
 
@@ -231,18 +233,18 @@ export default class Analysis extends Component {
       </Row>
     );
 
-    const topColResponsiveProps = {
-      xs: 24,
-      sm: 12,
-      md: 12,
-      lg: 12,
-      xl: 6,
-      style: { marginBottom: 24 },
-    };
+    // const topColResponsiveProps = {
+    //   xs: 24,
+    //   sm: 12,
+    //   md: 12,
+    //   lg: 12,
+    //   xl: 6,
+    //   style: { marginBottom: 24 },
+    // };
 
     return (
       <Fragment>
-        <Row gutter={24}>
+        {/* <Row gutter={24}>
           <Col {...topColResponsiveProps}>
             <ChartCard
               bordered={false}
@@ -321,9 +323,9 @@ export default class Analysis extends Component {
               <MiniProgress percent={78} strokeWidth={8} target={80} color="#13C2C2" />
             </ChartCard>
           </Col>
-        </Row>
+        </Row> */}
 
-        <Card loading={loading} bordered={false} bodyStyle={{ padding: 0 }}>
+        {/* <Card loading={loading} bordered={false} bodyStyle={{ padding: 0 }}>
           <div className={styles.salesCard}>
             <Tabs tabBarExtraContent={salesExtra} size="large" tabBarStyle={{ marginBottom: 24 }}>
               <TabPane tab="销售额" key="sales">
@@ -374,44 +376,46 @@ export default class Analysis extends Component {
               </TabPane>
             </Tabs>
           </div>
-        </Card>
-
+        </Card> */}
+        {/* <Card style={{fontSize:'20px',textAlign:'center'}}>下范村居民人口分析</Card> */}
         <Row gutter={24}>
           <Col xl={12} lg={24} md={24} sm={24} xs={24}>
             <Card
               loading={loading}
               bordered={false}
-              title="线上热门搜索"
+              title="每户家庭成员数量排名"
               extra={iconGroup}
               style={{ marginTop: 24 }}
             >
               <Row gutter={68}>
                 <Col sm={12} xs={24} style={{ marginBottom: 24 }}>
                   <NumberInfo
-                    subTitle={
-                      <span>
-                        搜索用户数
-                        <Tooltip title="指标文案">
-                          <Icon style={{ marginLeft: 8 }} type="info-circle-o" />
-                        </Tooltip>
-                      </span>
-                    }
+                    subTitle="总居民户数"
+                    // {
+                      // <span>
+                      //   搜索用户数
+                      //   <Tooltip title="指标文案">
+                      //     <Icon style={{ marginLeft: 8 }} type="info-circle-o" />
+                      //   </Tooltip> 
+                       
+                      // </span>
+                    // }
                     gap={8}
-                    total={numeral(12321).format('0,0')}
-                    status="up"
-                    subTotal={17.1}
+                    total={numeral(423).format('0')}
+                    // status="up"
+                    // subTotal={17.1}
                   />
-                  <MiniArea line height={45} data={visitData2} />
+                  {/* <MiniArea line height={45} data={visitData2} /> */}
                 </Col>
                 <Col sm={12} xs={24} style={{ marginBottom: 24 }}>
                   <NumberInfo
-                    subTitle="人均搜索次数"
-                    total={2.7}
-                    status="down"
-                    subTotal={26.2}
+                    subTitle="成员最多家庭"
+                    total={numeral(9007).format('0')}
+                    // status="down"
+                    // subTotal={26.2}
                     gap={8}
                   />
-                  <MiniArea line height={45} data={visitData2} />
+                  {/* <MiniArea line height={45} data={visitData2} /> */}
                 </Col>
               </Row>
               <Table
@@ -431,35 +435,35 @@ export default class Analysis extends Component {
               loading={loading}
               className={styles.salesCard}
               bordered={false}
-              title="销售额类别占比"
+              title="人口结构占比"
               bodyStyle={{ padding: 24 }}
               extra={
                 <div className={styles.salesCardExtra}>
                   {iconGroup}
                   <div className={styles.salesTypeRadio}>
                     <Radio.Group value={salesType} onChange={this.handleChangeSalesType}>
-                      <Radio.Button value="all">全部渠道</Radio.Button>
-                      <Radio.Button value="online">线上</Radio.Button>
-                      <Radio.Button value="offline">门店</Radio.Button>
+                      <Radio.Button value="all">性别</Radio.Button>
+                      <Radio.Button value="online">年龄</Radio.Button>
+                      <Radio.Button value="offline">职业</Radio.Button>
                     </Radio.Group>
                   </div>
                 </div>
               }
               style={{ marginTop: 24, minHeight: 509 }}
             >
-              <h4 style={{ marginTop: 8, marginBottom: 32 }}>销售额</h4>
+              <h4 style={{ marginTop: 8, marginBottom: 32 }}>人口结构</h4>
               <Pie
                 hasLegend
-                subTitle="销售额"
+                subTitle="人口结构"
                 total={() => (
                   <span
                     dangerouslySetInnerHTML={{
-                      __html: yuan(salesPieData.reduce((pre, now) => now.y + pre, 0)),
+                      __html: numeral(salesPieData.reduce((pre, now) => now.y + pre, 0)).format('0'),
                     }}
                   />
                 )}
                 data={salesPieData}
-                valueFormat={val => <span dangerouslySetInnerHTML={{ __html: yuan(val) }} />}
+                valueFormat={val => <span dangerouslySetInnerHTML={{ __html: numeral(val).format('0') }} />}
                 height={248}
                 lineWidth={4}
               />
