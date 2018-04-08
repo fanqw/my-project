@@ -31,106 +31,125 @@ for (let i = 0; i < 12; i += 1) {
 const searchData = [
   {
     index:1,
+    group:'一组',
     family_code:9007,
     master:'范文来',
-    group:'12人，8男，4女',
+    family_group:'12人，8男，4女',
   },
   {
     index:2,
+    group:'三组',
     family_code:9061,
     master:'范灿辉',
-    group:'12人，7男，5女',
+    family_group:'12人，7男，5女',
   },{
     index:3,
+    group:'二组',
     family_code:9054,
     master:'范俊伟',
-    group:'11人，6男，5女',
+    family_group:'11人，6男，5女',
   },{
     index:4,
+    group:'一组',
     family_code:9115,
     master:'范天来',
-    group:'10人，5男，5女',
+    family_group:'10人，5男，5女',
   },{
     index:5,
+    group:'四组',
     family_code:9401,
     master:'范国辉',
-    group:'10人，4男，6女',
+    family_group:'10人，4男，6女',
   },{
     index:6,
+    group:'五组',
     family_code:9367,
     master:'范党辉',
-    group:'8人，5男，3女',
+    family_group:'8人，5男，3女',
   },{
     index:7,
+    group:'三组',
     family_code:9358,
     master:'范军武',
-    group:'7人，3男，4女',
+    family_group:'7人，3男，4女',
   },{
     index:8,
+    group:'六组',
     family_code:9211,
     master:'范灿伟',
-    group:'6人，4男，2女',
+    family_group:'6人，4男，2女',
   },{
     index:9,
+    group:'七组',
     family_code:9203,
     master:'范利民',
-    group:'6人，3男，3女',
+    family_group:'6人，3男，3女',
   },{
     index:10,
+    group:'一组',
     family_code:9107,
     master:'范孟子',
-    group:'6人，3男，3女',
+    family_group:'6人，3男，3女',
   },{
     index:11,
+    group:'一组',
     family_code:9112,
     master:'范喜庆',
-    group:'6人，2男，4女',
+    family_group:'6人，2男，4女',
   },{
     index:12,
+    group:'一组',
     family_code:9343,
     master:'范仁和',
-    group:'5人，3男，2女',
+    family_group:'5人，3男，2女',
   },{
     index:13,
+    group:'四组',
     family_code:9205,
     master:'范振武',
-    group:'5人，3男，2女',
+    family_group:'5人，3男，2女',
   },{
     index:14,
+    group:'一组',
     family_code:9192,
     master:'范伊川',
-    group:'4人，2男，2女',
+    family_group:'4人，2男，2女',
   },{
     index:15,
+    group:'三组',
     family_code:9166,
     master:'范振立',
-    group:'3人，2男，1女',
+    family_group:'3人，2男，1女',
   },{
     index:16,
+    group:'四组',
     family_code:9271,
     master:'范飞飞',
-    group:'3人，1男，2女',
+    family_group:'3人，1男，2女',
   },{
     index:17,
+    group:'二组',
     family_code:9166,
     master:'范灿科',
-    group:'2人，1男，1女',
+    family_group:'2人，1男，1女',
   },{
     index:18,
+    group:'三组',
     family_code:9099,
     master:'范武军',
-    group:'2人，1男，1女',
+    family_group:'2人，1男，1女',
   },
 ];
-// for (let i = 0; i < 432; i += 1) {
-//   searchData.push({
-//     index: i + 1,
-//     keyword: 9000+Math.round(Math.random()*100),
-//     count: Math.floor(Math.random() * 1000),
-//     range: `${Math.round(Math.random() * 10)+Math.round(Math.random() * 10)}人，${Math.round(Math.random() * 10)}男，${Math.round(Math.random() * 10)}女`,
-//     // status: Math.floor((Math.random() * 10) % 2),
-//   });
-// }
+for (let i = 18; i < 432; i += 1) {
+  searchData.push({
+    index: i + 1,
+    group: '一组',
+    family_code: 9000+Math.round(Math.random()*1000/2),
+    master:'xxx',
+    family_group: `${Math.round(Math.random() * 10)+Math.round(Math.random() * 10)}人，${Math.round(Math.random() * 10)}男，${Math.round(Math.random() * 10)}女`,
+    // status: Math.floor((Math.random() * 10) % 2),
+  });
+}
 const salesTypeData = [
   {
     x: '男',

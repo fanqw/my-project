@@ -179,6 +179,11 @@ export default class Analysis extends Component {
         key: 'index',
       },
       {
+        title: '分组',
+        dataIndex: 'group',
+        key: 'group',
+      },
+      {
         title: '户号',
         dataIndex: 'family_code',
         key: 'family_code',
@@ -193,8 +198,8 @@ export default class Analysis extends Component {
       },
       {
         title: '家庭成员',
-        dataIndex: 'group',
-        key: 'group',
+        dataIndex: 'family_group',
+        key: 'family_group',
         render:(text) => (text),align:"center",
         // sorter: (a, b) => a.range - b.range,
         // render: (text, record) => (
