@@ -2,4 +2,6 @@
 module.exports = {
   // 'primary-color': '#10e99b',
   'card-actions-background': '#f5f8fa',
+  // 'layout-body-background': '#01cae6',
+  // 'card-actions-background': '#01cae6',
 };
