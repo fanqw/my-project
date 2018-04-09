@@ -4,7 +4,7 @@ import DocumentTitle from 'react-document-title';
 import { Icon } from 'antd';
 import GlobalFooter from '../components/GlobalFooter';
 import styles from './UserLayout.less';
-import logo from '../assets/logo.svg';
+// import logo from '../assets/logo.svg';
 import { getRoutes } from '../utils/utils';
 
 const links = [
@@ -50,11 +50,11 @@ class UserLayout extends React.PureComponent {
             <div className={styles.top}>
               <div className={styles.header}>
                 <Link to="/">
-                  <img alt="logo" className={styles.logo} src={logo} />
+                  <img alt="logo" className={styles.logo} src={require('../../public/resident.png')} />
                   <span className={styles.title}>Resident Information Management System</span>
                 </Link>
               </div>
-              <div className={styles.desc}>下范村居民信息管理系统</div>
+              <div className={styles.desc} style={{fontSize:'25px'}}>下范村居民信息管理系统</div>
             </div>
             <Switch>
               {getRoutes(match.path, routerData).map(item => (
