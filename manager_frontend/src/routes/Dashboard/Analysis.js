@@ -48,7 +48,7 @@ for (let i = 0; i < 7; i += 1) {
 }))
 export default class Analysis extends Component {
   state = {
-    salesType: 'all',
+    salesType: 'age',
     currentTabKey: '',
     rangePickerValue: getTimeDistance('year'),
   };
@@ -116,22 +116,44 @@ export default class Analysis extends Component {
     // const { rangePickerValue, salesType, currentTabKey } = this.state;
     const { salesType, currentTabKey } = this.state;
     const { chart, loading } = this.props;
+    console.log("this.props",this.props);
     const {
       // visitData,
       // visitData2,
       // salesData,
       searchData,
+      ageClassify,
+      genderClassify,
+      // residentCount,
       offlineData,
       offlineChartData,
-      salesTypeData,
-      salesTypeDataOnline,
-      salesTypeDataOffline,
     } = chart;
 
     const salesPieData =
-      salesType === 'all'
-        ? salesTypeData
-        : salesType === 'online' ? salesTypeDataOnline : salesTypeDataOffline;
+      salesType === 'gender'
+        ? genderClassify
+        : salesType === 'age' ? ageClassify : [
+          {
+            x: '家用电器',
+            y: 99,
+          },
+          {
+            x: '个护健康',
+            y: 188,
+          },
+          {
+            x: '服饰箱包',
+            y: 344,
+          },
+          {
+            x: '母婴产品',
+            y: 255,
+          },
+          {
+            x: '其他',
+            y: 65,
+          },
+        ];;
 
     const menu = (
       <Menu>
@@ -406,7 +428,7 @@ export default class Analysis extends Component {
                       // </span>
                     // }
                     gap={8}
-                    total={numeral(423).format('0')}
+                    total={numeral(searchData.length).format('0')}
                     // status="up"
                     // subTotal={17.1}
                   />
@@ -415,7 +437,8 @@ export default class Analysis extends Component {
                 <Col sm={12} xs={24} style={{ marginBottom: 24 }}>
                   <NumberInfo
                     subTitle="成员最多家庭"
-                    total={numeral(9007).format('0')}
+                    // total={numeral(9007).format('0')}
+                    total={searchData[0]?searchData[0].family_code:""}
                     // status="down"
                     // subTotal={26.2}
                     gap={8}
@@ -447,9 +470,9 @@ export default class Analysis extends Component {
                   {iconGroup}
                   <div className={styles.salesTypeRadio}>
                     <Radio.Group value={salesType} onChange={this.handleChangeSalesType}>
-                      <Radio.Button value="all">性别</Radio.Button>
-                      <Radio.Button value="online">年龄</Radio.Button>
-                      <Radio.Button value="offline">职业</Radio.Button>
+                      <Radio.Button value="gender">性别</Radio.Button>
+                      <Radio.Button value="age">年龄</Radio.Button>
+                      <Radio.Button value="job">职业</Radio.Button>
                     </Radio.Group>
                   </div>
                 </div>
@@ -463,7 +486,7 @@ export default class Analysis extends Component {
                 total={() => (
                   <span
                     dangerouslySetInnerHTML={{
-                      __html: numeral(salesPieData.reduce((pre, now) => now.y + pre, 0)).format('0'),
+                      __html:salesPieData ? numeral(salesPieData.reduce((pre, now) => now.y + pre, 0)).format('0') : "",
                     }}
                   />
                 )}

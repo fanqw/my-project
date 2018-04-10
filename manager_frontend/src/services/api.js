@@ -41,7 +41,7 @@ export async function fakeSubmitForm(params) {
 }
 
 export async function fakeChartData() {
-  return request('/api/fake_chart_data');
+  return request('http://119.23.76.9:8009/api/fake_chart_data');
 }
 
 export async function queryTags() {

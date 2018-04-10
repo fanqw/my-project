@@ -98,7 +98,9 @@ export default class GlobalHeader extends PureComponent {
           type={collapsed ? 'menu-unfold' : 'menu-fold'}
           onClick={this.toggle}
         />
+        <span style={{fontSize:'20px',marginLeft:'10px'}}>河南省洛阳市伊川县吕店镇下范村</span>
         <div className={styles.right}>
+          
           <HeaderSearch
             className={`${styles.action} ${styles.search}`}
             placeholder="站内搜索"
@@ -154,7 +156,7 @@ export default class GlobalHeader extends PureComponent {
           {currentUser.name ? (
             <Dropdown overlay={menu}>
               <span className={`${styles.action} ${styles.account}`}>
-                <Avatar size="small" className={styles.avatar} src={currentUser.avatar} />
+                <Avatar size="small" className={styles.avatar} src={require('../../../public/captain.png')} />
                 <span className={styles.name}>{currentUser.name}</span>
               </span>
             </Dropdown>
