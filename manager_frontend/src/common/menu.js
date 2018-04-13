@@ -2,57 +2,69 @@ import { isUrl } from '../utils/utils';
 
 const menuData = [
   {
-    name: '户籍管理',
-    icon: 'dashboard',
+    name: '居民信息统计',
+    icon: 'line-chart',
     path: 'dashboard',
     children: [
       {
-        name: '人口统计',
+        name: '居民结构占比',
         path: 'analysis',
       },
       {
-        name: '人口分析',
+        name: '居民人口变化分析',
         path: 'monitor',
       },
-      {
-        name: '迁入迁出分析',
-        path: 'workplace',
-        // hideInBreadcrumb: true,
-        // hideInMenu: true,
-      },
+      // {
+      //   name: '迁入迁出分析',
+      //   path: 'workplace',
+      //   // hideInBreadcrumb: true,
+      //   // hideInMenu: true,
+      // },
     ],
   },
   {
-    name: '居民信息登记',
+    name: '居民户籍管理',
     icon: 'form',
     path: 'form',
     children: [
       {
-        name: '普通居民信息登记',
+        name: '户籍信息登记',
         path: 'basic-form',
       },
     //   {
     //     name: '分步表单',
     //     path: 'step-form',
     //   },
+      // {
+      //   name: '贫困户信息登记',
+      //   authority: 'admin',
+      //   path: 'advanced-form',
+      // },
       {
-        name: '贫困户信息登记',
-        authority: 'admin',
-        path: 'advanced-form',
+        name: '户籍信息查询',
+        path: 'table-list',
+      },
+      {
+        name: '户籍档案列表',
+        path: 'basic-list',
       },
     ],
   },
   {
-    name: '居民信息查询',
-    icon: 'table',
+    name: '扶贫工作',
+    icon: 'team',
     path: 'list',
     children: [
       {
-        name: '查询居民信息',
+        name: '贫困户信息登记',
+        path: 'basic-form',
+      },
+      {
+        name: '贫困户信息查询',
         path: 'table-list',
       },
       {
-        name: '居民信息总览',
+        name: '贫困户档案列表',
         path: 'basic-list',
       },
       // {
@@ -60,22 +72,38 @@ const menuData = [
       //   path: 'card-list',
       // },
       {
-        name: '搜索列表',
+        name: '贫困户收支统计',
         path: 'search',
-        children: [
-          {
-            name: '搜索列表（）',
-            path: 'articles',
-          },
-          {
-            name: '搜索列表（项目）',
-            path: 'projects',
-          },
-          {
-            name: '搜索列表（应用）',
-            path: 'applications',
-          },
-        ],
+        // children: [
+        //   {
+        //     name: '搜索户号',
+        //     path: 'articles',
+        //   },
+        //   {
+        //     name: '搜索',
+        //     path: 'projects',
+        //   },
+        //   {
+        //     name: '搜索列表（应用）',
+        //     path: 'applications',
+        //   },
+        // ],
+      },
+    ],
+  },
+   {
+    name: '政策宣传',
+    icon: 'notification',
+    path: 'profile',
+    children: [
+      {
+        name: '政策列表',
+        path: 'basic',
+      },
+      {
+        name: '政策通知',
+        path: 'advanced',
+        authority: 'admin',
       },
     ],
   },
@@ -161,7 +189,7 @@ const menuData = [
   },
   {
     name: '乡村信息',
-    icon: 'book',
+    icon: 'profile',
     path: 'dashboard/workplace',
   },
 ];
