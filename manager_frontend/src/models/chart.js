@@ -8,6 +8,7 @@ export default {
     visitData2: [],
     salesData: [],
     searchData: [],
+    residentsData:[],
     offlineData: [],
     offlineChartData: [],
     salesTypeData: [],
@@ -34,6 +35,15 @@ export default {
         },
       });
     },
+    // *fetchResidentsData(_,{ call , put}){
+    //   const response = yield call(residentsData);
+    //   yield put({
+    //     type: 'save',
+    //     payload: {
+    //       residentsData:response.residentsData,
+    //     },
+    //   });
+    // },
   },
 
   reducers: {

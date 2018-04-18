@@ -127,6 +127,7 @@ export default class Pie extends Component {
       animate = true,
       colors,
       lineWidth = 1,
+      type,
     } = this.props;
 
     const { legendData, legendBlock } = this.state;
@@ -222,7 +223,10 @@ export default class Pie extends Component {
                 {subTitle && <h4 className="pie-sub-title">{subTitle}</h4>}
                 {/* eslint-disable-next-line */}
                 {total && (
-                  <div className="pie-stat">{typeof total === 'function' ? total() : total}人</div>
+                  <div className="pie-stat">
+                    {typeof total === 'function' ? total() : total}
+                    {type === 'gender' || type === 'age' ?'人':'户'}
+                  </div>
                 )}
               </div>
             )}
@@ -244,7 +248,10 @@ export default class Pie extends Component {
                 <span className={styles.percent}>
                   {`${(isNaN(item.percent) ? 0 : item.percent * 100).toFixed(2)}%`}
                 </span>
-                <span className={styles.value}>{valueFormat ? valueFormat(item.y) : item.y}人</span>
+                <span className={styles.value}>
+                  {valueFormat ? valueFormat(item.y) : item.y}
+                  {type === 'gender' || type === 'age' ?'人':'户'}
+                </span>
               </li>
             ))}
           </ul>

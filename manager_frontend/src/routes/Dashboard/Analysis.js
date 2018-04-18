@@ -5,9 +5,10 @@ import {
   Col,
   Icon,
   Card,
-  Tabs,
+  // Tabs,
   Table,
   Radio,
+  Spin,
   // DatePicker,
   // Tooltip,
   Menu,
@@ -23,15 +24,15 @@ import {
   // Field,
   // Bar,
   Pie,
-  TimelineChart,
+  // TimelineChart,
 } from 'components/Charts';
 // import Trend from 'components/Trend';
 import NumberInfo from 'components/NumberInfo';
-import { getTimeDistance } from '../../utils/utils';
+// import { getTimeDistance } from '../../utils/utils';
 
 import styles from './Analysis.less';
 
-const { TabPane } = Tabs;
+// const { TabPane } = Tabs;
 // const { RangePicker } = DatePicker;
 
 const rankingListData = [];
@@ -42,119 +43,118 @@ for (let i = 0; i < 7; i += 1) {
   });
 }
 
-@connect(({ chart, loading }) => ({
+@connect(({ chart,loading }) => ({
   chart,
   loading: loading.effects['chart/fetch'],
 }))
 export default class Analysis extends Component {
   state = {
-    salesType: 'age',
-    currentTabKey: '',
-    rangePickerValue: getTimeDistance('year'),
+    type: 'age',
+    // currentTabKey: '',
+    // rangePickerValue: getTimeDistance('year'),
   };
 
   componentDidMount() {
+    console.log("=====>didMount",this.props.chart.residentsData)
+   
     this.props.dispatch({
       type: 'chart/fetch',
     });
   }
 
   componentWillUnmount() {
+    console.log("=====>willunmount",this.props.chart.residentsData)
+    if(this.props.chart.residentsData !== '[]'){
+      localStorage.setItem('residentsData',JSON.stringify(this.props.chart.residentsData))
+    }
     const { dispatch } = this.props;
     dispatch({
       type: 'chart/clear',
     });
   }
 
-  handleChangeSalesType = e => {
+  handleChangetype = e => {
     this.setState({
-      salesType: e.target.value,
+      type: e.target.value,
     });
   };
 
-  handleTabChange = key => {
-    this.setState({
-      currentTabKey: key,
-    });
-  };
+  // handleTabChange = key => {
+  //   this.setState({
+  //     currentTabKey: key,
+  //   });
+  // };
 
-  handleRangePickerChange = rangePickerValue => {
-    this.setState({
-      rangePickerValue,
-    });
+  // handleRangePickerChange = rangePickerValue => {
+  //   this.setState({
+  //     rangePickerValue,
+  //   });
+//
+  //   this.props.dispatch({
+  //     type: 'chart/fetchSalesData',
+  //   });
+  // };
 
-    this.props.dispatch({
-      type: 'chart/fetchSalesData',
-    });
-  };
+  // selectDate = type => {
+  //   this.setState({
+  //     rangePickerValue: getTimeDistance(type),
+  //   });
 
-  selectDate = type => {
-    this.setState({
-      rangePickerValue: getTimeDistance(type),
-    });
+  //   this.props.dispatch({
+  //     type: 'chart/fetchSalesData',
+  //   });
+  // };
 
-    this.props.dispatch({
-      type: 'chart/fetchSalesData',
-    });
-  };
-
-  isActive(type) {
-    const { rangePickerValue } = this.state;
-    const value = getTimeDistance(type);
-    if (!rangePickerValue[0] || !rangePickerValue[1]) {
-      return;
-    }
-    if (
-      rangePickerValue[0].isSame(value[0], 'day') &&
-      rangePickerValue[1].isSame(value[1], 'day')
-    ) {
-      return styles.currentDate;
-    }
-  }
+  // isActive(type) {
+  //   const { rangePickerValue } = this.state;
+  //   const value = getTimeDistance(type);
+  //   if (!rangePickerValue[0] || !rangePickerValue[1]) {
+  //     return;
+  //   }
+  //   if (
+  //     rangePickerValue[0].isSame(value[0], 'day') &&
+  //     rangePickerValue[1].isSame(value[1], 'day')
+  //   ) {
+  //     return styles.currentDate;
+  //   }
+  // }
 
   render() {
-    // const { rangePickerValue, salesType, currentTabKey } = this.state;
-    const { salesType, currentTabKey } = this.state;
+    // const { rangePickerValue, type, currentTabKey } = this.state;
+    const { type} = this.state;
     const { chart, loading } = this.props;
     console.log("this.props",this.props);
+    console.log("type",this.state.type);
     const {
       // visitData,
       // visitData2,
       // salesData,
-      searchData,
-      ageClassify,
-      genderClassify,
+      ageClassify = [],
       // residentCount,
-      offlineData,
-      offlineChartData,
+      // offlineData,
+      // offlineChartData,
+      genderClassify = [],
+      incomeClassify = [],
+      groupClassify = [],
     } = chart;
+ console.log("============1", localStorage.getItem('residentsData') !== 'undefined');
+ console.log("============2", localStorage.getItem('residentsData'));
+    const residentsData =  
+    localStorage.getItem('residentsData') !== 'undefined' && localStorage.getItem('residentsData') !== null
+         ? JSON.parse(localStorage.getItem('residentsData'))
+         :chart.residentsData 
+          ?chart.residentsData 
+          :[]
+
 
     const salesPieData =
-      salesType === 'gender'
+      type === 'gender'
         ? genderClassify
-        : salesType === 'age' ? ageClassify : [
-          {
-            x: '家用电器',
-            y: 99,
-          },
-          {
-            x: '个护健康',
-            y: 188,
-          },
-          {
-            x: '服饰箱包',
-            y: 344,
-          },
-          {
-            x: '母婴产品',
-            y: 255,
-          },
-          {
-            x: '其他',
-            y: 65,
-          },
-        ];;
+        : type === 'age' ? ageClassify 
+        : type === 'income' ? incomeClassify
+        : groupClassify;
 
+      console.log("salespiedata",salesPieData)  
     const menu = (
       <Menu>
         <Menu.Item>操作一</Menu.Item>
@@ -207,8 +207,8 @@ export default class Analysis extends Component {
       },
       {
         title: '户号',
-        dataIndex: 'family_code',
-        key: 'family_code',
+        dataIndex: 'family_id',
+        key: 'family_id',
         render: text => <a href="/">{text}</a>,
       },
       {
@@ -220,9 +220,9 @@ export default class Analysis extends Component {
       },
       {
         title: '家庭成员',
-        dataIndex: 'family_group',
-        key: 'family_group',
-        render:(text) => (text),align:"center",
+        dataIndex: 'family_count',
+        key: 'family_count',
+        render:(text) => (<span>{text}人</span>),align:"center",
         // sorter: (a, b) => a.range - b.range,
         // render: (text, record) => (
         //   <Trend flag={record.status === 1 ? 'down' : 'up'}>
@@ -233,32 +233,32 @@ export default class Analysis extends Component {
       },
     ];
 
-    const activeKey = currentTabKey || (offlineData[0] && offlineData[0].name);
+    // const activeKey = currentTabKey || (offlineData[0] && offlineData[0].name);
 
-    const CustomTab = ({ data, currentTabKey: currentKey }) => (
-      <Row gutter={8} style={{ width: 138, margin: '8px 0' }}>
-        <Col span={12}>
-          <NumberInfo
-            title={data.name}
-            subTitle="转化率"
-            gap={2}
-            total={`${data.cvr * 100}%`}
-            theme={currentKey !== data.name && 'light'}
-          />
-        </Col>
-        <Col span={12} style={{ paddingTop: 36 }}>
-          <Pie
-            animate={false}
-            color={currentKey !== data.name && '#BDE4FF'}
-            inner={0.55}
-            tooltip={false}
-            margin={[0, 0, 0, 0]}
-            percent={data.cvr * 100}
-            height={64}
-          />
-        </Col>
-      </Row>
-    );
+    // const CustomTab = ({ data, currentTabKey: currentKey }) => (
+    //   <Row gutter={8} style={{ width: 138, margin: '8px 0' }}>
+    //     <Col span={12}>
+    //       <NumberInfo
+    //         title={data.name}
+    //         subTitle="转化率"
+    //         gap={2}
+    //         total={`${data.cvr * 100}%`}
+    //         theme={currentKey !== data.name && 'light'}
+    //       />
+    //     </Col>
+    //     <Col span={12} style={{ paddingTop: 36 }}>
+    //       <Pie
+    //         animate={false}
+    //         color={currentKey !== data.name && '#BDE4FF'}
+    //         inner={0.55}
+    //         tooltip={false}
+    //         margin={[0, 0, 0, 0]}
+    //         percent={data.cvr * 100}
+    //         height={64}
+    //       />
+    //     </Col>
+    //   </Row>
+    // );
 
     // const topColResponsiveProps = {
     //   xs: 24,
@@ -408,54 +408,56 @@ export default class Analysis extends Component {
         <Row gutter={24}>
           <Col xl={12} lg={24} md={24} sm={24} xs={24}>
             <Card
-              loading={loading}
+              // loading={loading}
               bordered={false}
               title="每户家庭成员数量排名"
               extra={iconGroup}
               style={{ marginTop: 24 }}
             >
-              <Row gutter={68}>
-                <Col sm={12} xs={24} style={{ marginBottom: 24 }}>
-                  <NumberInfo
-                    subTitle="总居民户数"
-                    // {
-                      // <span>
-                      //   搜索用户数
-                      //   <Tooltip title="指标文案">
-                      //     <Icon style={{ marginLeft: 8 }} type="info-circle-o" />
-                      //   </Tooltip> 
-                       
-                      // </span>
-                    // }
-                    gap={8}
-                    total={numeral(searchData.length).format('0')}
-                    // status="up"
-                    // subTotal={17.1}
-                  />
-                  {/* <MiniArea line height={45} data={visitData2} /> */}
-                </Col>
-                <Col sm={12} xs={24} style={{ marginBottom: 24 }}>
-                  <NumberInfo
-                    subTitle="成员最多家庭"
-                    // total={numeral(9007).format('0')}
-                    total={searchData[0]?searchData[0].family_code:""}
-                    // status="down"
-                    // subTotal={26.2}
-                    gap={8}
-                  />
-                  {/* <MiniArea line height={45} data={visitData2} /> */}
-                </Col>
-              </Row>
-              <Table
-                rowKey={record => record.index}
-                size="small"
-                columns={columns}
-                dataSource={searchData}
-                pagination={{
-                  style: { marginBottom: 0 },
-                  pageSize: 5,
-                }}
-              />
+              <Spin tip="数据正在加载..." spinning={localStorage.getItem('residentsData') !== 'undefined' ? false : loading} >
+                <Row gutter={68}>
+                  <Col sm={12} xs={24} style={{ marginBottom: 24 }}>
+                    <NumberInfo
+                      subTitle="总居民户数"
+                      // {
+                        // <span>
+                        //   搜索用户数
+                        //   <Tooltip title="指标文案">
+                        //     <Icon style={{ marginLeft: 8 }} type="info-circle-o" />
+                        //   </Tooltip> 
+                        
+                        // </span>
+                      // }
+                      gap={8}
+                      total={numeral(residentsData.length).format('0')}
+                      // status="up"
+                      // subTotal={17.1}
+                    />
+                    {/* <MiniArea line height={45} data={visitData2} /> */}
+                  </Col>
+                  <Col sm={12} xs={24} style={{ marginBottom: 24 }}>
+                    <NumberInfo
+                      subTitle="成员最多家庭"
+                      // total={numeral(9007).format('0')}
+                      total={residentsData[0]?residentsData[0].family_id:""}
+                      // status="down"
+                      // subTotal={26.2}
+                      gap={8}
+                    />
+                    {/* <MiniArea line height={45} data={visitData2} /> */}
+                  </Col>
+                </Row>
+                <Table
+                  rowKey={record => record.index}
+                  size="small"
+                  columns={columns}
+                  dataSource={residentsData}
+                  pagination={{
+                    style: { marginBottom: 0 },
+                    pageSize: 5,
+                  }}
+                />
+              </Spin>
             </Card>
           </Col>
           <Col xl={12} lg={24} md={24} sm={24} xs={24}>
@@ -469,10 +471,11 @@ export default class Analysis extends Component {
                 <div className={styles.salesCardExtra}>
                   {iconGroup}
                   <div className={styles.salesTypeRadio}>
-                    <Radio.Group value={salesType} onChange={this.handleChangeSalesType}>
+                    <Radio.Group value={type} onChange={this.handleChangetype}>
                       <Radio.Button value="gender">性别</Radio.Button>
                       <Radio.Button value="age">年龄</Radio.Button>
-                      <Radio.Button value="job">职业</Radio.Button>
+                      <Radio.Button value="income">收入</Radio.Button>
+                      <Radio.Button value="group">分组</Radio.Button>
                     </Radio.Group>
                   </div>
                 </div>
@@ -480,26 +483,32 @@ export default class Analysis extends Component {
               style={{ marginTop: 24, minHeight: 509 }}
             >
               <h4 style={{ marginTop: 8, marginBottom: 32 }}>人口结构</h4>
-              <Pie
-                hasLegend
-                subTitle="人口结构"
-                total={() => (
-                  <span
-                    dangerouslySetInnerHTML={{
-                      __html:salesPieData ? numeral(salesPieData.reduce((pre, now) => now.y + pre, 0)).format('0') : "",
-                    }}
-                  />
-                )}
-                data={salesPieData}
-                valueFormat={val => <span dangerouslySetInnerHTML={{ __html: numeral(val).format('0') }} />}
-                height={248}
-                lineWidth={4}
-              />
+              {salesPieData.length !== 0 ? ( 
+                <Pie
+                  hasLegend
+                  subTitle="人口结构"
+                  type={type}
+                  total={() => (
+                    <span
+                      dangerouslySetInnerHTML={{
+                        __html:salesPieData ? numeral(salesPieData.reduce((pre, now) => now.y + pre, 0)).format('0') : "",
+                      }}
+                    />
+                  )}
+                  data={salesPieData}
+                  valueFormat={val => <span dangerouslySetInnerHTML={{ __html: numeral(val).format('0') }} />}
+                  height={248}
+                  lineWidth={4}
+                />
+                ) : (
+                  <span>暂无数据</span>
+                )
+              }
             </Card>
           </Col>
         </Row>
 
-        <Card
+        {/* <Card
           loading={loading}
           className={styles.offlineCard}
           bordered={false}
@@ -519,7 +528,7 @@ export default class Analysis extends Component {
               </TabPane>
             ))}
           </Tabs>
-        </Card>
+        </Card> */}
       </Fragment>
     );
   }

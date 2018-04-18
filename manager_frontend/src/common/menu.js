@@ -7,11 +7,11 @@ const menuData = [
     path: 'dashboard',
     children: [
       {
-        name: '居民结构占比',
+        name: '居民人口结构',
         path: 'analysis',
       },
       {
-        name: '居民人口变化分析',
+        name: '居民人口变化',
         path: 'monitor',
       },
       // {
@@ -44,10 +44,10 @@ const menuData = [
         name: '户籍信息查询',
         path: 'table-list',
       },
-      {
-        name: '户籍档案列表',
-        path: 'basic-list',
-      },
+      // {
+      //   name: '户籍档案列表',
+      //   path: 'basic-list',
+      // },
     ],
   },
   {
@@ -63,10 +63,10 @@ const menuData = [
         name: '贫困户信息查询',
         path: 'table-list',
       },
-      {
-        name: '贫困户档案列表',
-        path: 'basic-list',
-      },
+      // {
+      //   name: '贫困户档案列表',
+      //   path: 'basic-list',
+      // },
       // {
       //   name: '卡片列表',
       //   path: 'card-list',
