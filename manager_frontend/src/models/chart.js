@@ -15,6 +15,10 @@ export default {
     salesTypeDataOnline: [],
     salesTypeDataOffline: [],
     radarData: [],
+    genderClassify:[],
+    ageClassify:[],
+    incomeClassify:[],
+    groupClassify:[],
     loading: false,
   },
 
@@ -64,6 +68,11 @@ export default {
         salesTypeData: [],
         salesTypeDataOnline: [],
         salesTypeDataOffline: [],
+        residentsData:[],
+        genderClassify:[],
+        ageClassify:[],
+        incomeClassify:[],
+        groupClassify:[],
         radarData: [],
       };
     },

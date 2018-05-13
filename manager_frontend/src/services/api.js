@@ -2,7 +2,7 @@ import { stringify } from 'qs';
 import request from '../utils/request';
 
 // const globalPath = 'http://119.23.76.9:8009';
-const globalPath = 'http://192.168.1.105:8009';
+const globalPath = 'http://192.168.1.118:8009';
 
 export async function queryProjectNotice() {
   return request('/api/project/notice');

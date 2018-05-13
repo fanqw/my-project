@@ -225,7 +225,7 @@ export default class Pie extends Component {
                 {total && (
                   <div className="pie-stat">
                     {typeof total === 'function' ? total() : total}
-                    {type === 'gender' || type === 'age' ?'人':'户'}
+                    {type === 'genderClassify' || type === 'ageClassify' ?'人':'户'}
                   </div>
                 )}
               </div>
@@ -250,7 +250,7 @@ export default class Pie extends Component {
                 </span>
                 <span className={styles.value}>
                   {valueFormat ? valueFormat(item.y) : item.y}
-                  {type === 'gender' || type === 'age' ?'人':'户'}
+                  {type === 'genderClassify' || type === 'ageClassify' ?'人':'户'}
                 </span>
               </li>
             ))}

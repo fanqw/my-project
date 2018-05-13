@@ -49,23 +49,37 @@ for (let i = 0; i < 7; i += 1) {
 }))
 export default class Analysis extends Component {
   state = {
-    type: 'age',
+    type: 'ageClassify',
     // currentTabKey: '',
     // rangePickerValue: getTimeDistance('year'),
   };
 
   componentDidMount() {
-    console.log("=====>didMount",this.props.chart.residentsData)
-   
+    console.log("=====>willunmount",this.props.chart)
     this.props.dispatch({
       type: 'chart/fetch',
     });
   }
 
   componentWillUnmount() {
-    console.log("=====>willunmount",this.props.chart.residentsData)
-    if(this.props.chart.residentsData !== '[]'){
+    console.log("=====>willunmount",this.props.chart)
+    console.log("=====>this.props.chart.residentsData",this.props.chart.residentsData)
+    console.log("=====>this.props.chart.residentsData && this.props.chart.residentsData.length !== 0",this.props.chart.residentsData && this.props.chart.residentsData.length !== 0)
+    if(this.props.chart.residentsData && this.props.chart.residentsData.length !== 0){
+      console.log("=====>this.props.chart.residentsData",this.props.chart.residentsData)
       localStorage.setItem('residentsData',JSON.stringify(this.props.chart.residentsData))
+    }
+    if(this.props.chart.ageClassify && this.props.chart.ageClassify.length !== 0){
+      localStorage.setItem('ageClassify',JSON.stringify(this.props.chart.ageClassify))
+    }
+    if(this.props.chart.genderClassify && this.props.chart.genderClassify.length !== 0){
+      localStorage.setItem('genderClassify',JSON.stringify(this.props.chart.genderClassify))
+    }
+    if(this.props.chart.groupClassify  && this.props.chart.groupClassify.length !== 0){
+      localStorage.setItem('groupClassify',JSON.stringify(this.props.chart.groupClassify))
+    }
+    if(this.props.chart.incomeClassify && this.props.chart.incomeClassify.length !== 0){
+      localStorage.setItem('incomeClassify',JSON.stringify(this.props.chart.incomeClassify))
     }
     const { dispatch } = this.props;
     dispatch({
@@ -123,35 +137,57 @@ export default class Analysis extends Component {
     // const { rangePickerValue, type, currentTabKey } = this.state;
     const { type} = this.state;
     const { chart, loading } = this.props;
-    console.log("this.props",this.props);
-    console.log("type",this.state.type);
-    const {
-      // visitData,
-      // visitData2,
-      // salesData,
-      ageClassify = [],
-      // residentCount,
-      // offlineData,
-      // offlineChartData,
-      genderClassify = [],
-      incomeClassify = [],
-      groupClassify = [],
-    } = chart;
- console.log("============1", localStorage.getItem('residentsData') !== 'undefined');
- console.log("============2", localStorage.getItem('residentsData'));
+    // console.log("this.props",this.props);
+    // console.log("type",this.state.type);
+    // const {
+    //   // visitData,
+    //   // visitData2,
+    //   // salesData,
+    //   ageClassify = [],
+    //   // residentCount,
+    //   // offlineData,
+    //   // offlineChartData,
+    //   genderClassify = [],
+    //   incomeClassify = [],
+    //   groupClassify = [],
+    // } = chart;
+//  console.log("============1", localStorage.getItem('residentsData') !== 'undefined');
+//  console.log("============2", localStorage.getItem('residentsData'));
     const residentsData =  
-    localStorage.getItem('residentsData') !== 'undefined' && localStorage.getItem('residentsData') !== null
+    localStorage.getItem('residentsData') !== 'undefined'  && localStorage.getItem('genderClassify') !== null && localStorage.getItem('residentsData') !== '[]'
          ? JSON.parse(localStorage.getItem('residentsData'))
          :chart.residentsData 
           ?chart.residentsData 
-          :[]
-
-
+          :[];
+    const genderClassify =  
+          localStorage.getItem('genderClassify') !== 'undefined' && localStorage.getItem('genderClassify') !== null && localStorage.getItem('genderClassify') !== '[]'
+          ? JSON.parse(localStorage.getItem('genderClassify'))
+          :chart.genderClassify 
+            ?chart.genderClassify 
+            :[];
+    const ageClassify =  
+          localStorage.getItem('ageClassify') !== 'undefined' && localStorage.getItem('ageClassify') !== null && localStorage.getItem('ageClassify') !== '[]'
+          ? JSON.parse(localStorage.getItem('ageClassify'))
+          :chart.ageClassify 
+            ?chart.ageClassify 
+            :[];
+    const incomeClassify=  
+          localStorage.getItem('incomeClassify') !== 'undefined' && localStorage.getItem('incomeClassify') !== null && localStorage.getItem('incomeClassify') !== '[]'
+          ? JSON.parse(localStorage.getItem('incomeClassify'))
+          :chart.incomeClassify 
+            ?chart.incomeClassify 
+            :[];
+    const groupClassify=  
+          localStorage.getItem('groupClassify') !== 'undefined' && localStorage.getItem('groupClassify') !== null && localStorage.getItem('groupClassify') !== '[]'
+          ? JSON.parse(localStorage.getItem('groupClassify'))
+          :chart.groupClassify 
+            ?chart.groupClassify 
+            :[];
     const salesPieData =
-      type === 'gender'
+      type === 'genderClassify'
         ? genderClassify
-        : type === 'age' ? ageClassify 
-        : type === 'income' ? incomeClassify
+        : type === 'ageClassify' ? ageClassify 
+        : type === 'incomeClassify' ? incomeClassify
         : groupClassify;
 
       console.log("salespiedata",salesPieData)  
@@ -223,7 +259,7 @@ export default class Analysis extends Component {
         dataIndex: 'family_count',
         key: 'family_count',
         render:(text) => (<span>{text}人</span>),align:"center",
-        // sorter: (a, b) => a.range - b.range,
+        // sorter: (a, b) => a.family_count - b.family_count,
         // render: (text, record) => (
         //   <Trend flag={record.status === 1 ? 'down' : 'up'}>
         //     <span style={{ marginRight: 4 }}>{text}%</span>
@@ -414,7 +450,7 @@ export default class Analysis extends Component {
               extra={iconGroup}
               style={{ marginTop: 24 }}
             >
-              <Spin tip="数据正在加载..." spinning={localStorage.getItem('residentsData') !== 'undefined' ? false : loading} >
+              <Spin tip="数据正在加载中..." spinning={localStorage.getItem('residentsData') !== 'undefined' && localStorage.getItem('residentsData') !== null && localStorage.getItem('residentsData') !== '[]' ? false : loading} >
                 <Row gutter={68}>
                   <Col sm={12} xs={24} style={{ marginBottom: 24 }}>
                     <NumberInfo
@@ -429,7 +465,7 @@ export default class Analysis extends Component {
                         // </span>
                       // }
                       gap={8}
-                      total={numeral(residentsData.length).format('0')}
+                      total={residentsData && residentsData.length !== 0 ? numeral(residentsData.length).format('0') : ''}
                       // status="up"
                       // subTotal={17.1}
                     />
@@ -439,7 +475,7 @@ export default class Analysis extends Component {
                     <NumberInfo
                       subTitle="成员最多家庭"
                       // total={numeral(9007).format('0')}
-                      total={residentsData[0]?residentsData[0].family_id:""}
+                      total={residentsData && residentsData.length !== 0 ? residentsData[0]?residentsData[0].family_id:"" : ''}
                       // status="down"
                       // subTotal={26.2}
                       gap={8}
@@ -462,7 +498,7 @@ export default class Analysis extends Component {
           </Col>
           <Col xl={12} lg={24} md={24} sm={24} xs={24}>
             <Card
-              loading={loading}
+              // loading={loading}
               className={styles.salesCard}
               bordered={false}
               title="人口结构占比"
@@ -472,10 +508,10 @@ export default class Analysis extends Component {
                   {iconGroup}
                   <div className={styles.salesTypeRadio}>
                     <Radio.Group value={type} onChange={this.handleChangetype}>
-                      <Radio.Button value="gender">性别</Radio.Button>
-                      <Radio.Button value="age">年龄</Radio.Button>
-                      <Radio.Button value="income">收入</Radio.Button>
-                      <Radio.Button value="group">分组</Radio.Button>
+                      <Radio.Button value="genderClassify">性别</Radio.Button>
+                      <Radio.Button value="ageClassify">年龄</Radio.Button>
+                      <Radio.Button value="incomeClassify">收入</Radio.Button>
+                      <Radio.Button value="groupClassify">分组</Radio.Button>
                     </Radio.Group>
                   </div>
                 </div>
@@ -483,7 +519,8 @@ export default class Analysis extends Component {
               style={{ marginTop: 24, minHeight: 509 }}
             >
               <h4 style={{ marginTop: 8, marginBottom: 32 }}>人口结构</h4>
-              {salesPieData.length !== 0 ? ( 
+              {/* {salesPieData.length !== 0 ? (  */}
+              <Spin tip="数据正在加载..." spinning={localStorage.getItem(`${type}`) !== 'undefined' && localStorage.getItem(`${type}`) !== null && localStorage.getItem(`${type}`) !== '[]' ? false : loading} >
                 <Pie
                   hasLegend
                   subTitle="人口结构"
@@ -491,8 +528,8 @@ export default class Analysis extends Component {
                   total={() => (
                     <span
                       dangerouslySetInnerHTML={{
-                        __html:salesPieData ? numeral(salesPieData.reduce((pre, now) => now.y + pre, 0)).format('0') : "",
-                      }}
+                          __html:salesPieData ? numeral(salesPieData.reduce((pre, now) => now.y + pre, 0)).format('0') : "",
+                        }}
                     />
                   )}
                   data={salesPieData}
@@ -500,10 +537,11 @@ export default class Analysis extends Component {
                   height={248}
                   lineWidth={4}
                 />
-                ) : (
+              </Spin>
+              {/* ) : (
                   <span>暂无数据</span>
                 )
-              }
+              } */}
             </Card>
           </Col>
         </Row>

@@ -8,11 +8,11 @@ const menuData = [
     children: [
       {
         name: '居民人口结构',
-        path: 'analysis',
+        path: 'structure',
       },
       {
         name: '居民人口变化',
-        path: 'monitor',
+        path: 'change',
       },
       // {
       //   name: '迁入迁出分析',
